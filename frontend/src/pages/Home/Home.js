@@ -1,20 +1,17 @@
 import React from "react";
+import ArgentBankLogo from "../../assets/argentBankLogo.png";
+import IconChat from "../../assets/icon-chat.png";
+import IconMoney from "../../assets/icon-money.png";
+import IconSecurity from "../../assets/icon-security.png";
 
 function Home() {
   return (
     <div className="Home">
-      {/* <meta charSet="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Argent Bank - Home Page</title>
-      <link
-        rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-      /> */}
       <nav className="main-nav">
         <a className="main-nav-logo" href="./index.html">
           <img
             className="main-nav-logo-image"
-            src="./img/argentBankLogo.png"
+            src={ArgentBankLogo}
             alt="Argent Bank Logo"
           />
           <h1 className="sr-only">Argent Bank</h1>
@@ -41,11 +38,7 @@ function Home() {
         <section className="features">
           <h2 className="sr-only">Features</h2>
           <div className="feature-item">
-            <img
-              src="./img/icon-chat.png"
-              alt="Chat Icon"
-              className="feature-icon"
-            />
+            <img src={IconChat} alt="Chat Icon" className="feature-icon" />
             <h3 className="feature-item-title">You are our #1 priority</h3>
             <p>
               Need to talk to a representative? You can get in touch through our
@@ -53,11 +46,7 @@ function Home() {
             </p>
           </div>
           <div className="feature-item">
-            <img
-              src="./img/icon-money.png"
-              alt="Chat Icon"
-              className="feature-icon"
-            />
+            <img src={IconMoney} alt="Chat Icon" className="feature-icon" />
             <h3 className="feature-item-title">
               More savings means higher rates
             </h3>
@@ -66,11 +55,7 @@ function Home() {
             </p>
           </div>
           <div className="feature-item">
-            <img
-              src="./img/icon-security.png"
-              alt="Chat Icon"
-              className="feature-icon"
-            />
+            <img src={IconSecurity} alt="Chat Icon" className="feature-icon" />
             <h3 className="feature-item-title">Security you can trust</h3>
             <p>
               We use top of the line encryption to make sure your data and money

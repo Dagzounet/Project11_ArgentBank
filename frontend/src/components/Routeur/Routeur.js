@@ -5,15 +5,11 @@ import Home from "../../pages/Home/Home";
 function Routeur() {
   return (
     <Router>
-      <div className="App">
-        <div className="app-container">
-          <main>
-            <Routes>
-              <Route path="/" element={<Home />} />
-            </Routes>
-          </main>
-        </div>
-      </div>
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </main>
     </Router>
   );
 }
