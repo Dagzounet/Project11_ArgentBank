@@ -8,7 +8,7 @@ function Home() {
   return (
     <div className="Home">
       <nav className="main-nav">
-        <a className="main-nav-logo" href="./index.html">
+        <a className="main-nav-logo" href="./">
           <img
             className="main-nav-logo-image"
             src={ArgentBankLogo}
