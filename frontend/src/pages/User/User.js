@@ -1,6 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 function User() {
+  const isConnected = useSelector((state) => state.loginSlice.isConnected);
+
+  if (!isConnected) {
+    return <Navigate to="/signin" />;
+  }
+
   return (
     <div className="User">
       <main className="main bg-dark">
