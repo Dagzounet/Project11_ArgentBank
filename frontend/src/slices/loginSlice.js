@@ -36,6 +36,7 @@ const loginSlice = createSlice({
   reducers: {
     logout: (state) => {
       localStorage.removeItem("token");
+      localStorage.removeItem("profileData");
       state.token = null;
       state.loading = false;
       state.error = null;

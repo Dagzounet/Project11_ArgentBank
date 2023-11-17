@@ -6,12 +6,19 @@ import { logout } from "../../slices/loginSlice";
 
 function Header() {
   const token = useSelector((state) => state.loginSlice.token);
+  const profileData = useSelector((state) => state.profileSlice.profileData);
   const dispatch = useDispatch();
 
   const handleSignOut = () => {
     // Dispatch de l'action logout pour déconnecter l'utilisateur
     dispatch(logout());
   };
+
+  let displayUserName = "Chargement...";
+
+  if (profileData && profileData.userName) {
+    displayUserName = profileData.userName;
+  }
 
   return (
     <nav className="main-nav">
@@ -25,16 +32,20 @@ function Header() {
       </Link>
       <div>
         {token ? (
-          // Si un token est présent, affiche le lien "Sign Out"
-          <Link onClick={handleSignOut} className="main-nav-item">
+          // Si un token est présent, affiche le nom d'utilisateur en tant que lien vers la page "/user"
+          <Link to="/user" className="main-nav-item">
+            {displayUserName + " "}
             <i className="fa fa-user-circle"></i>
-            Sign Out
           </Link>
         ) : (
-          // Sinon, affiche le lien "Sign In"
           <Link to="./signin" className="main-nav-item">
             <i className="fa fa-user-circle"></i>
             Sign In
+          </Link>
+        )}
+        {token && (
+          <Link onClick={handleSignOut} className="main-nav-item">
+            Sign Out
           </Link>
         )}
       </div>

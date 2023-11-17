@@ -1,12 +1,27 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserProfile } from "../../slices/profileSlice";
 import { Navigate } from "react-router-dom";
 
 function User() {
-  const isConnected = useSelector((state) => state.loginSlice.isConnected);
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.loginSlice.token);
+  const profileData = useSelector((state) => state.profileSlice.profileData);
 
-  if (!isConnected) {
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchUserProfile(token));
+    }
+  }, [dispatch, token]);
+
+  if (!token) {
     return <Navigate to="/signin" />;
+  }
+
+  let displayName = "Chargement...";
+
+  if (profileData && profileData.firstName && profileData.lastName) {
+    displayName = profileData.firstName + " " + profileData.lastName;
   }
 
   return (
@@ -16,7 +31,7 @@ function User() {
           <h1>
             Welcome back
             <br />
-            Tony Jarvis!
+            {displayName}
           </h1>
           <button className="edit-button">Edit Name</button>
         </div>
