@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginSuccess, loginFailure } from "../../slices/loginSlice";
+import { signInUser } from "../../slices/loginSlice";
 import { useNavigate } from "react-router-dom";
 
-function SignIn() {
+const SignIn = () => {
   const dispatch = useDispatch();
-  const isConnected = useSelector((state) => state.loginSlice.isConnected);
+  const { loading, error } = useSelector((state) => state.loginSlice); // selector récupère l'état global des props
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -15,27 +15,11 @@ function SignIn() {
     e.preventDefault();
 
     try {
-      console.log("Request Data:", JSON.stringify({ email, password }));
-      const response = await fetch("http://localhost:3001/api/v1/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      console.log("Server Response:", response);
-      const data = await response.json();
-
-      if (response.status === 200) {
-        dispatch(loginSuccess({ token: data.body.token }));
-        navigate("/user");
-      } else {
-        dispatch(loginFailure());
-      }
+      await dispatch(signInUser({ email, password }));
+      navigate("/user");
     } catch (error) {
       console.error("Error during login:", error);
-      dispatch(loginFailure());
+      // signInUser gère les erreurs
     }
   };
 
@@ -71,12 +55,13 @@ function SignIn() {
             <button type="submit" className="sign-in-button">
               Sign In
             </button>
-            {isConnected === false ? <p>Erreur d'identifiants</p> : null}
+            {loading && <p>Chargement...</p>}
+            {error && <p>{error}</p>}
           </form>
         </section>
       </main>
     </div>
   );
-}
+};
 
 export default SignIn;
