@@ -10,13 +10,11 @@ function Routeur() {
   return (
     <Router>
       <Header />
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/user" element={<User />} />
-        </Routes>
-      </main>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/user" element={<User />} />
+      </Routes>
       <Footer />
     </Router>
   );
