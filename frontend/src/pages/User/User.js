@@ -1,18 +1,20 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserProfile } from "../../slices/profileSlice";
+import { fetchUserProfile, setOpenFormEdit } from "../../slices/profileSlice";
 import { Navigate } from "react-router-dom";
+import EditUsername from "../../components/EditUsername/EditUsername";
 
 function User() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.loginSlice.token);
   const profileData = useSelector((state) => state.profileSlice.profileData);
+  const openFormEdit = useSelector((state) => state.profileSlice.openFormEdit);
 
   useEffect(() => {
     if (token) {
-      dispatch(fetchUserProfile(token));
+      dispatch(fetchUserProfile(token)); // si token alors enclenche action récup data user
     }
-  }, [dispatch, token]);
+  }, [dispatch, token]); // dépendance pour retrigger l'effect en cas de changement du token
 
   if (!token) {
     return <Navigate to="/signin" />;
@@ -24,6 +26,10 @@ function User() {
     displayName = profileData.firstName + " " + profileData.lastName;
   }
 
+  const handleEditClick = () => {
+    dispatch(setOpenFormEdit(true));
+  };
+
   return (
     <div className="User">
       <main className="main bg-dark">
@@ -33,8 +39,13 @@ function User() {
             <br />
             {displayName}
           </h1>
-          <button className="edit-button">Edit Name</button>
+          {!openFormEdit && (
+            <button className="edit-button" onClick={handleEditClick}>
+              Edit Name
+            </button>
+          )}
         </div>
+        {openFormEdit && <EditUsername setOpenFormEdit={setOpenFormEdit} />}
         <h2 className="sr-only">Accounts</h2>
         <section className="account">
           <div className="account-content-wrapper">

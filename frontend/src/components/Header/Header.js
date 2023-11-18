@@ -1,13 +1,19 @@
-import React from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import ArgentBankLogo from "../../assets/argentBankLogo.png";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../slices/loginSlice";
+import { loadUserProfileOnPageLoad } from "../../slices/profileSlice";
 
 function Header() {
   const token = useSelector((state) => state.loginSlice.token);
   const profileData = useSelector((state) => state.profileSlice.profileData);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Charger le profil utilisateur au chargement initial de la page
+    dispatch(loadUserProfileOnPageLoad());
+  }, [dispatch]);
 
   const handleSignOut = () => {
     // Dispatch de l'action logout pour déconnecter l'utilisateur
