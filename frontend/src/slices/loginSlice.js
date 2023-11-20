@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-// Action asynchrone pour la connexion
+// Action asynchrone pour la connexion (rejectWithValue = fonction redux toolkit pour gérer les erreurs)
 export const signInUser = createAsyncThunk(
   "authentification/signInUser",
   async ({ email, password }, { rejectWithValue }) => {
@@ -57,7 +57,7 @@ const loginSlice = createSlice({
       })
       .addCase(signInUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Une erreur s'est produite";
+        state.error = action.payload || "Une erreur s'est produite"; // transmet automatiquement au payload grâce à la fonction rejectWithValue
       });
   },
 });

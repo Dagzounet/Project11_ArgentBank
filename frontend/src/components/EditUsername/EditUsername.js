@@ -18,12 +18,12 @@ const EditUsername = () => {
 
   useEffect(() => {
     if (profileData.userName) {
-      dispatch(setEditedUsername(profileData.userName)); // Met à jour le nom d'utilisateur édité avec celui du profil
+      dispatch(setEditedUsername(profileData.userName)); // Met le pseudo actuel de l'utilisateur comme valeur de editedUsername
     }
   }, [dispatch, profileData.userName]);
 
   const handleUsernameChange = (e) => {
-    dispatch(setEditedUsername(e.target.value)); // Met à jour le nom d'utilisateur édité dans le store Redux
+    dispatch(setEditedUsername(e.target.value)); // Met à jour le nom d'utilisateur édité dans le store Redux comme valeur d'editedUsername
     dispatch(setEditError(""));
   };
 
@@ -35,7 +35,7 @@ const EditUsername = () => {
     }
     try {
       await dispatch(updateUsername({ token, newUsername: editedUsername }));
-      // envoi le nouveau nom entré par l'utilisateur, token en argument pour l'authentification
+      // envoi avec le fetch en put le nouveau nom entré par l'utilisateur à partir de la valeur editedUsername, token en argument pour l'authentification
       dispatch(setOpenFormEdit(false));
     } catch (error) {
       console.error(error);

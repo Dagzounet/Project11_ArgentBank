@@ -12,8 +12,8 @@ function Header() {
 
   useEffect(() => {
     // Charger le profil utilisateur au chargement initial de la page
-    dispatch(loadUserProfileOnPageLoad());
-  }, [dispatch]);
+    dispatch(loadUserProfileOnPageLoad(token));
+  }, [dispatch, token]);
 
   const handleSignOut = () => {
     // Dispatch de l'action logout pour déconnecter l'utilisateur

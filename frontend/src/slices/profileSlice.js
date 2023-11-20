@@ -28,9 +28,8 @@ export const fetchUserProfile = createAsyncThunk(
 );
 
 // Action pour charger le profil utilisateur lors du chargement de la page (username Header)
-export const loadUserProfileOnPageLoad = () => async (dispatch, getState) => {
+export const loadUserProfileOnPageLoad = (token) => async (dispatch) => {
   try {
-    const { token } = getState().loginSlice;
     if (token) {
       // Dispatch de l'action fetchUserProfile pour charger les données du profil utilisateur
       await dispatch(fetchUserProfile(token));
