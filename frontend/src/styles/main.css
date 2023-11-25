@@ -41,6 +41,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 5px 20px;
+  text-align: right;
 }
 
 .main-nav a {
@@ -55,6 +56,7 @@ body {
 .main-nav-item {
   text-decoration: none;
   margin-right: 0.5rem;
+  display: inline-block;
 }
 
 .main-nav-item:hover {
