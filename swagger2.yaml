@@ -1,0 +1,168 @@
+swagger: '2.0'
+info:
+  title: Bank Argent API documentation (second part)
+  description: Contains the probably future second part of API endpoints
+  version: '1.0.0'
+  termsOfService: 'http://swagger.io/terms/'
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - http
+paths:
+  /accounts/{id}/transactions:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions
+      summary: Get a list of every transactions from an account ID
+      description: Retrieve a list of every transactions from an account ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: Account ID
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Successful retrieval of transactions
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Transaction'
+          examples:
+            application/json:
+              - id: "1"
+                date: "2023-11-25T08:00:00Z"
+                description: "Transaction description"
+                amount: 100.0
+                transaction_type: "debit"
+                note: "Transaction note"
+                category: "Expense"
+        '401':
+          description: Unauthorized - Authentication credentials are missing or invalid.
+        '500':
+          description: Internal Server Error
+
+  /transactions/{id}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions
+      summary: Get a specific transaction by ID
+      description: Retrieve a specific transaction by its ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: Transaction ID
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Successful retrieval of a transaction
+          schema:
+            $ref: '#/definitions/Transaction'
+          examples:
+            application/json:
+              id: "1"
+              date: "2023-11-25T08:00:00Z"
+              description: "Transaction description"
+              amount: 100.0
+              transaction_type: "debit"
+              note: "Transaction note"
+              category: "Expense"
+        '400':
+          description: Bad Request - The provided account ID is invalid.
+        '401':
+          description: Unauthorized - Authentication credentials are missing or invalid.
+        '403':
+          description: Forbidden - The user is not authorized to access this resource.
+        '404':
+          description: Not Found - The specified account ID does not exist.
+        '500':
+          description: Internal Server Error
+
+    patch:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions
+      summary: Update a specific transaction by ID
+      description: Modify specific information about a precise transaction by its ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: Transaction ID
+        - in: body
+          name: body
+          description: Transaction data to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/TransactionUpdate'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Successful update of a transaction
+          schema:
+            $ref: '#/definitions/Transaction'
+          examples:
+            application/json:
+              note: "Updated transaction note"
+              category: "Expense"
+        '204':
+          description: No New Content - Nothing to modify here.
+        '400':
+          description: Bad Request - The provided transaction data is invalid.
+        '401':
+          description: Unauthorized - Authentication credentials are missing or invalid.
+        '403':
+          description: Forbidden - The user is not authorized to perform this action.
+        '404':
+          description: Not Found - The specified transaction ID does not exist.
+        '422':
+          description: Unprocessable Entity - The request body is semantically incorrect.
+        '500':
+          description: Internal Server Error
+          
+          
+
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  Transaction:
+    type: object
+    properties:
+      id:
+        type: string
+      date:
+        type: string
+        format: date-time
+      description:
+        type: string
+      amount:
+        type: number
+      transaction_type:
+        type: string
+      note:
+        type: string
+      category:
+        type: string
+
+  TransactionUpdate:
+    type: object
+    properties:
+      note:
+        type: string
+      category:
+        type: string
