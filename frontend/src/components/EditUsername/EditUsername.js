@@ -1,49 +1,43 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  updateUsername,
-  setEditedUsername,
-  setEditError,
-  setOpenFormEdit,
-} from "../../slices/profileSlice";
+import { updateUsername } from "../../slices/profileSlice";
 
-const EditUsername = () => {
+const EditUsername = ({ setOpenFormEdit }) => {
   const dispatch = useDispatch();
   const profileData = useSelector((state) => state.profileSlice.profileData);
-  const editedUsername = useSelector(
-    (state) => state.profileSlice.editedUsername
-  );
-  const editError = useSelector((state) => state.profileSlice.editError);
   const token = useSelector((state) => state.loginSlice.token);
+
+  const [editedUsername, setEditedUsername] = useState(""); // Pour gérer le nouvel username
+  const [editError, setEditError] = useState(""); // Pour gérer erreur champ vide
 
   useEffect(() => {
     if (profileData.userName) {
-      dispatch(setEditedUsername(profileData.userName)); // Met le pseudo actuel de l'utilisateur comme valeur de editedUsername
+      setEditedUsername(profileData.userName); // Met le pseudo actuel de l'utilisateur comme valeur de editedUsername
     }
   }, [dispatch, profileData.userName]);
 
   const handleUsernameChange = (e) => {
-    dispatch(setEditedUsername(e.target.value)); // Met à jour le nom d'utilisateur édité dans le store Redux comme valeur d'editedUsername
-    dispatch(setEditError(""));
+    setEditedUsername(e.target.value); // Met à jour le nom d'utilisateur édité dans le store Redux comme valeur d'editedUsername
+    setEditError("");
   };
 
   const formSubmit = async (e) => {
     e.preventDefault(); // evite le rechargement de la page
     if (!editedUsername) {
-      dispatch(setEditError("Le champ ne peut pas être vide."));
+      setEditError("Le champ ne peut pas être vide.");
       return;
     }
     try {
       await dispatch(updateUsername({ token, newUsername: editedUsername }));
       // envoi avec le fetch en put le nouveau nom entré par l'utilisateur à partir de la valeur editedUsername, token en argument pour l'authentification
-      dispatch(setOpenFormEdit(false));
+      setOpenFormEdit(false);
     } catch (error) {
       console.error(error);
     }
   };
 
   const cancelEdit = () => {
-    dispatch(setOpenFormEdit(false)); // Pour refermer l'éditeur
+    setOpenFormEdit(false); // Pour refermer l'éditeur
   };
 
   return (

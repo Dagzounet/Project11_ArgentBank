@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserProfile, setOpenFormEdit } from "../../slices/profileSlice";
+import { fetchUserProfile } from "../../slices/profileSlice";
 import { Navigate } from "react-router-dom";
 import EditUsername from "../../components/EditUsername/EditUsername";
 import UserBankAccount from "../../components/UserBankAccount/UserBankAccount";
@@ -9,7 +9,7 @@ function User() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.loginSlice.token);
   const profileData = useSelector((state) => state.profileSlice.profileData);
-  const openFormEdit = useSelector((state) => state.profileSlice.openFormEdit);
+  const [openFormEdit, setOpenFormEdit] = useState(false);
 
   useEffect(() => {
     if (token) {
@@ -28,7 +28,7 @@ function User() {
   }
 
   const handleEditClick = () => {
-    dispatch(setOpenFormEdit(true));
+    setOpenFormEdit(true);
   };
 
   return (

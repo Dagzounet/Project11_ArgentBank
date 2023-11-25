@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import ArgentBankLogo from "../../assets/argentBankLogo.png";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../slices/loginSlice";
-import { loadUserProfileOnPageLoad } from "../../slices/profileSlice";
+import { fetchUserProfile } from "../../slices/profileSlice";
 
 function Header() {
   const token = useSelector((state) => state.loginSlice.token);
@@ -11,8 +11,10 @@ function Header() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Charger le profil utilisateur au chargement initial de la page
-    dispatch(loadUserProfileOnPageLoad(token));
+    if (token) {
+      // Charger le profil utilisateur au chargement initial de la page
+      dispatch(fetchUserProfile(token));
+    }
   }, [dispatch, token]);
 
   const handleSignOut = () => {
