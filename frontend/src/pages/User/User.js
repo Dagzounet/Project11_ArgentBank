@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUserProfile, setOpenFormEdit } from "../../slices/profileSlice";
 import { Navigate } from "react-router-dom";
 import EditUsername from "../../components/EditUsername/EditUsername";
+import UserBankAccount from "../../components/UserBankAccount/UserBankAccount";
 
 function User() {
   const dispatch = useDispatch();
@@ -47,36 +48,21 @@ function User() {
         </div>
         {openFormEdit && <EditUsername setOpenFormEdit={setOpenFormEdit} />}
         <h2 className="sr-only">Accounts</h2>
-        <section className="account">
-          <div className="account-content-wrapper">
-            <h3 className="account-title">Argent Bank Checking (x8349)</h3>
-            <p className="account-amount">$2,082.79</p>
-            <p className="account-amount-description">Available Balance</p>
-          </div>
-          <div className="account-content-wrapper cta">
-            <button className="transaction-button">View transactions</button>
-          </div>
-        </section>
-        <section className="account">
-          <div className="account-content-wrapper">
-            <h3 className="account-title">Argent Bank Savings (x6712)</h3>
-            <p className="account-amount">$10,928.42</p>
-            <p className="account-amount-description">Available Balance</p>
-          </div>
-          <div className="account-content-wrapper cta">
-            <button className="transaction-button">View transactions</button>
-          </div>
-        </section>
-        <section className="account">
-          <div className="account-content-wrapper">
-            <h3 className="account-title">Argent Bank Credit Card (x8349)</h3>
-            <p className="account-amount">$184.30</p>
-            <p className="account-amount-description">Current Balance</p>
-          </div>
-          <div className="account-content-wrapper cta">
-            <button className="transaction-button">View transactions</button>
-          </div>
-        </section>
+        <UserBankAccount
+          title="Argent Bank Checking (x8349)"
+          amount="$2,082.79"
+          description="Available Balance"
+        />
+        <UserBankAccount
+          title="Argent Bank Savings (x6712)"
+          amount="$10,928.42"
+          description="Available Balance"
+        />
+        <UserBankAccount
+          title="Argent Bank Credit Card (x8349)"
+          amount="$184.30"
+          description="Current Balance"
+        />
       </main>
     </div>
   );
