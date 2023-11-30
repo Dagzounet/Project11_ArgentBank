@@ -1,7 +1,7 @@
 import React from "react";
-import IconChat from "../../assets/icon-chat.png";
-import IconMoney from "../../assets/icon-money.png";
-import IconSecurity from "../../assets/icon-security.png";
+import IconChat from "../../assets/icon-chat.webp";
+import IconMoney from "../../assets/icon-money.webp";
+import IconSecurity from "../../assets/icon-security.webp";
 import HomeBanner from "../../components/HomeBanner/HomeBanner";
 import HomeFeatures from "../../components/HomeFeatures/HomeFeatures";
 
@@ -14,7 +14,7 @@ function Home() {
           <h2 className="sr-only">Features</h2>
           <HomeFeatures
             icon={IconChat}
-            alt="Chat Icon"
+            alticon="Chat Icon"
             title="You are our #1 priority"
             description="Need to talk to a representative? You can get in touch through our
               24/7 chat or through a phone call in less than 5 minutes."

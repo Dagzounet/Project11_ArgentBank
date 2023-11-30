@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import ArgentBankLogo from "../../assets/argentBankLogo.png";
+import ArgentBankLogo from "../../assets/argentBankLogo.webp";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../slices/loginSlice";
 import { fetchUserProfile } from "../../slices/profileSlice";
