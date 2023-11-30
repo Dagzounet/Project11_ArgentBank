@@ -136,6 +136,8 @@ paths:
                 category: "Expense"
         "401":
           description: Unauthorized - Authentication credentials are missing or invalid.
+        "404":
+          description: Not Found - The specified account ID does not exist.
         "500":
           description: Internal Server Error
 
