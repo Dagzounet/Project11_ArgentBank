@@ -17,7 +17,7 @@ const EditUsername = ({ setOpenFormEdit }) => {
   }, [dispatch, profileData.userName]);
 
   const handleUsernameChange = (e) => {
-    setEditedUsername(e.target.value); // Met à jour le nom d'utilisateur édité dans le store Redux comme valeur d'editedUsername
+    setEditedUsername(e.target.value); // Met à jour le editedUsername sur la valeur rentré par l'utilisateur
     setEditError("");
   };
 

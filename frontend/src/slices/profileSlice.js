@@ -58,7 +58,7 @@ export const updateUsername = createAsyncThunk(
   }
 );
 
-// Slice Redux pour gérer l'état du profil utilisateur (+ form utilisateur + modif username)
+// Slice Redux pour gérer l'état du profil utilisateur
 const profileSlice = createSlice({
   name: "profile",
   initialState: {

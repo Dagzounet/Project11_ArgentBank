@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.loginSlice); // selector récupère l'état global des props
+  const { loading, error } = useSelector((state) => state.loginSlice); // selector récupère l'état global des valeurs du store
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
