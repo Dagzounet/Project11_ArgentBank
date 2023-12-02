@@ -108,14 +108,24 @@ paths:
         - Bearer: []
       tags:
         - Transactions
-      summary: Get a list of every transactions from an account ID
-      description: Retrieve a list of every transactions from an account ID
+      summary: Get a list of every transactions from an account ID for the current month of the selected year
+      description: Retrieve a list of every transactions from an account ID for the current month of the selected year
       parameters:
         - name: id
           in: path
           required: true
           type: string
           description: Account ID
+        - name: month
+          in: query
+          required: true
+          type: integer
+          description: Numeric representation of the month (1-12)
+        - name: year
+          in: query
+          required: true
+          type: integer
+          description: Year in YYYY format
       produces:
         - application/json
       responses:
@@ -217,6 +227,91 @@ paths:
               category: "Expense"
         "204":
           description: No New Content - Nothing to modify here.
+        "400":
+          description: Bad Request - The provided transaction data is invalid.
+        "401":
+          description: Unauthorized - Authentication credentials are missing or invalid.
+        "404":
+          description: Not Found - The specified transaction ID does not exist.
+        "422":
+          description: Unprocessable Entity - The request body is semantically incorrect.
+        "500":
+          description: Internal Server Error
+
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions
+      summary: Add information on specific transaction by ID
+      description: Add specific information about a precise transaction by its ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: Transaction ID
+        - in: body
+          name: body
+          description: Transaction data to add
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionUpdate"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successfully added information to a transaction
+          schema:
+            $ref: "#/definitions/Transaction"
+          examples:
+            application/json:
+              id: "1"
+              date: "2023-11-25T08:00:00Z"
+              description: "Transaction description"
+              amount: 100.0
+              transaction_type: "debit"
+              note: "Added transaction note"
+              category: "Expense"
+        "204":
+          description: No New Content - Nothing to modify here.
+        "400":
+          description: Bad Request - The provided transaction data is invalid.
+        "401":
+          description: Unauthorized - Authentication credentials are missing or invalid.
+        "404":
+          description: Not Found - The specified transaction ID does not exist.
+        "422":
+          description: Unprocessable Entity - The request body is semantically incorrect.
+        "500":
+          description: Internal Server Error
+
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions
+      summary: Delete information on specific transaction by ID
+      description: Delete specific information about a precise transaction by its ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: Transaction ID
+        - in: body
+          name: body
+          description: Transaction data to be deleted
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionUpdate"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successfully deleted information of a transaction
+        "204":
+          description: Successfully deleted information of a transaction
         "400":
           description: Bad Request - The provided transaction data is invalid.
         "401":
